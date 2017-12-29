@@ -1,0 +1,1 @@
+module.exports={name:'lili',age:17}
