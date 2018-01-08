@@ -3,6 +3,7 @@ import content from './content'
 
 import Button from './button';
 require('./style.css')
+require('./style1.css')
 var info = require('./module.js')
 
 var newinfo = () =>{ return info.name+'\'s age is '+info.age }
