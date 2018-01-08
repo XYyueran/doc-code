@@ -2,7 +2,7 @@
 const utils = require('./utils')//导入 util 模块
 const webpack = require('webpack')//导入webpack模块
 const config = require('../config')//导入配置文件
-const merge = require(rge'webpack-me')//// 引入webpack-merge模块。这个模块用于把多个webpack配置合并成一个配置，后面的配置会覆盖前面的配置。
+const merge = require('webpack-merge')//// 引入webpack-merge模块。这个模块用于把多个webpack配置合并成一个配置，后面的配置会覆盖前面的配置。
 const baseWebpackConfig = require('./webpack.base.conf')//webpack 基础配置文件
 const HtmlWebpackPlugin = require('html-webpack-plugin')//导入webpack插件，用来创建创建html入口文件
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')//webpack插件 这个插件能够更好的在终端看到webpack运行时的错误和警告等信息。可以提升开发体验。
