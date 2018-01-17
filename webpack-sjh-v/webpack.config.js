@@ -3,10 +3,14 @@ var path = require('path')
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin =require('html-webpack-plugin');
 module.exports={
-	entry:'./src/entry.js',//入口
+	//devtool:'source-map',
+	entry:{
+		entry:'./src/entry.js',
+		jsFOne:'./src/jsFOne.js'
+	},//入口
 	output:{//出口
-		path:path.join(__dirname,'dist'),
-		filename:'bundle.js'
+		path:path.resolve(__dirname,'dist'),
+		filename:'[name].bundle.js'
 	},
 	module:{
 		loaders:[
@@ -15,7 +19,23 @@ module.exports={
 	},
 	plugins:[
 		new ExtractTextPlugin('style.css'),
-		new HtmlWebpackPlugin()
-	]
+		/*new webpack.optimize.UglifyJsPlugin({
+			compress:{
+				warning  s:true
+			}
+		}),*/
+		new HtmlWebpackPlugin(),
+		new webpack.HotModuleReplacementPlugin(),
+	    new webpack.optimize.CommonsChunkPlugin({
+	    	name: 'common'
+	    })
+	],
+	devServer:{
+		historyApiFallback:true,
+		inline:true,
+		port:'8080',
+		open:true,
+
+	}
 
 }
