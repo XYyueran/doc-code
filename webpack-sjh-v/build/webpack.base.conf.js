@@ -3,14 +3,13 @@ const path = require("path");
 const utils = require("./utils");
 const config = require("./config");
 
+
 function resolve(dir){
 	return path.join(__dirname,'..',dir)
 }
 module.exports={
 	context:path.resolve(__dirname,'../'),
-	entry:{
-		app:'./src/entry.js'
-	},
+	entry:{},
 	output:{
 		path:resolve('dist'),
 		filename:'[name].js',

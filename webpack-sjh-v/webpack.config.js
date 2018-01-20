@@ -19,11 +19,6 @@ module.exports={
 	},
 	plugins:[
 		new ExtractTextPlugin('style.css'),
-		/*new webpack.optimize.UglifyJsPlugin({
-			compress:{
-				warning  s:true
-			}
-		}),*/
 		new HtmlWebpackPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 	    new webpack.optimize.CommonsChunkPlugin({

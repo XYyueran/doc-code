@@ -2,7 +2,21 @@
 const path = require('path')
 const config = require('./config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-//const packageConfig = require('../package.json')
+const glob =require("glob");
+exports.getEntry=function(globPath,pathDir){
+  var files= glob.sync(globPath);
+  var entries={},entry,dirname,basename,pathname,extname;
+  for(let i = 0; i<files.length; i++){
+    entry =files[i];
+    dirname = path.dirname(entry);
+    extname = path.extname(entry);
+    basename = path.basename(entry, extname);
+    pathname = path.join(dirname, basename);
+    pathname = pathDir ? pathname.replace(pathDir, '') : pathname;
+    entries[pathname] = './' + entry;
+  }
+  return entries;
+}
 
 exports.assetsPath = function (_path) {
   const assetsSubDirectory = process.env.NODE_ENV === 'production'
@@ -12,58 +26,8 @@ exports.assetsPath = function (_path) {
   return path.posix.join(assetsSubDirectory, _path)
 }
 
-exports.cssLoaders = function (options) {
-  options = options || {}
-  const cssLoader = {
-    loader: 'css-loader',
-    options: {
-      sourceMap: options.sourceMap
-    }
-  }
 
-  const postcssLoader = {
-    loader: 'postcss-loader',
-    options: {
-      sourceMap: options.sourceMap
-    }
-  }
 
-  function generateLoaders (loader, loaderOptions) {
-    const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
-    
-    if (loader) {
-      loaders.push({
-        loader: loader + '-loader',
-        options: Object.assign({}, loaderOptions, {
-          sourceMap: options.sourceMap
-        })
-      })
-    }
-    return {
-      css: generateLoaders(),
-      postcss: generateLoaders(),
-      less: generateLoaders('less'),
-      sass: generateLoaders('sass', { indentedSyntax: true }),
-      scss: generateLoaders('sass'),
-      stylus: generateLoaders('stylus'),
-      styl: generateLoaders('stylus')
-    }
-  }
-}
-exports.styleLoaders = function (options) {
-  const output = []
-  const loaders = exports.cssLoaders(options)
-
-  for (const extension in loaders) {
-    const loader = loaders[extension]
-    output.push({
-      test: new RegExp('\\.' + extension + '$'),
-      use: loader
-    })
-  }
-
-  return output
-}
 
 // exports.createNotifierCallback = () => {
 //   const notifier = require('node-notifier')
