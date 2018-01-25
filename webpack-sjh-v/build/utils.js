@@ -3,8 +3,10 @@ const path = require('path')
 const config = require('./config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const glob =require("glob");
+
 exports.getEntry=function(globPath,pathDir){
   var files= glob.sync(globPath);
+  console.log(files)
   var entries={},entry,dirname,basename,pathname,extname;
   for(let i = 0; i<files.length; i++){
     entry =files[i];
@@ -14,6 +16,7 @@ exports.getEntry=function(globPath,pathDir){
     pathname = path.join(dirname, basename);
     pathname = pathDir ? pathname.replace(pathDir, '') : pathname;
     entries[pathname] = './' + entry;
+    console.log(i,dirname,extname,basename,pathname)
   }
   return entries;
 }
